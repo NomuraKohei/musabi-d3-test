@@ -11,13 +11,11 @@ export const MyD3Component: React.FC = () => {
     wrapRefs.current[i] = React.createRef();
     svgRefs.current[i] = React.createRef();
   });
-  console.log(wrapRefs, svgRefs)
   // 2重のレンダリングを防止
   const isRender = useRef(false)
 
 
   const renderSvg = (wrapRef: any, svgRef: any, jsonData, title: string) => {
-    console.log(wrapRef, svgRef)
     // marginの設定
     const margin = { top: 40, right: 40, bottom: 40, left: 40 },
       width = 440 - margin.left - margin.right,
@@ -138,7 +136,6 @@ export const MyD3Component: React.FC = () => {
     () => {
       if (isRender.current || !wrapRefs.current.length || !svgRefs.current.length) return
       temperatureInfo.map((item, index) => {
-        console.log("Refs", wrapRefs.current[index], svgRefs.current[index])
         renderSvg(wrapRefs.current[index].current, svgRefs.current[index].current, item, islandNames[index])
       })
       isRender.current = true;
