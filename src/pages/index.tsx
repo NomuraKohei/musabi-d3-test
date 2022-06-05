@@ -3,6 +3,7 @@ import styles from '../styles/Home.module.scss';
 import { MyD3Component } from '../components/D3';
 import React, { useState } from 'react';
 import Script from 'next/script';
+import ogpImage from '../../public/ogp.jpg'
 
 export default function Home() {
     const [isScaleDown, setIsScaleDown] = useState(false);
@@ -32,6 +33,14 @@ export default function Home() {
                     name='description'
                     content='2002年から2020年までの月毎の海水温の平均をビジュアライズした。' />
                 <link rel='icon' href='/favicon.ico' />
+                <meta property="og:url" content="https://musabi-d3-test.vercel.app/" />
+                <meta property="og:title" content="Seawater TemperatureData Visualization" />
+                <meta property="og:site_name" content="Seawater TemperatureData Visualization" />
+                <meta property="og:description" content="月ごとの海水温の平均をビジュアライズ" />
+                <meta property="og:type" content="website" />
+                <meta property="og:image" content="ogpImage" />
+                <meta property="og:image:width" content={String(1260)} />
+                <meta property="og:image:height" content={String(600)} />
             </Head>
 
             <main className={`${styles.main} ${isScaleDown && styles.mainSmall}`}>
