@@ -1,6 +1,6 @@
 import * as d3 from "d3";
-import React, { useCallback, useEffect, useRef, useState } from "react";
-import jsonFile from '../../../public/jsonFile_all.json'
+import React, { useEffect, useRef } from "react";
+import jsonFile from '../../public/jsonFile_all.json'
 
 export const MyD3Component: React.FC = () => {
   const wrapRefs = useRef([]);

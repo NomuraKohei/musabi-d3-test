@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
-import { MyD3Component } from './components/D3';
+import { MyD3Component } from '../components/D3';
 
 export default function Home() {
     return (
