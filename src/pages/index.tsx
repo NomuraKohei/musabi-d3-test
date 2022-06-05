@@ -2,6 +2,7 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { MyD3Component } from '../components/D3';
 import React, { useState } from 'react';
+import Script from 'next/script';
 
 export default function Home() {
     const [isScaleDown, setIsScaleDown] = useState(false);
@@ -12,6 +13,19 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
+            <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`}
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${process.env.NEXT_PUBLIC_ANALYTICS_ID}');
+                `}
+            </Script>
             <Head>
                 <title>Seawater Temperature Data Visualization</title>
                 <meta
