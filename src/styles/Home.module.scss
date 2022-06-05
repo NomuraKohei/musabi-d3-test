@@ -4,19 +4,55 @@
 
 .main {
   min-height: 100vh;
-  padding: 4rem 0;
   flex: 1;
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  position: relative;
+  padding-top: 64px;
+
+  &Small {
+    justify-content: initial;
+    padding: 32px 0;
+  }
 }
 
 .titleContainer {
   color: #ccc;
   width: 440px;
   padding: 40px;
+
+  &Small {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: initial;
+    padding: initial;
+  }
+}
+
+.scaleButton {
+  background: #aaa;
+  border: none;
+  border-radius: 4px;
+  width: 112px;
+  padding: 8px;
+  color: #333;
+  font-weight: bold;
+  margin-top: 8px;
+  cursor: pointer;
+
+
+  &:hover {
+    background: #ccc;
+  }
+
+  @media screen and (max-width: 480px) {
+    display: none;
+  }
 }
 
 .title {

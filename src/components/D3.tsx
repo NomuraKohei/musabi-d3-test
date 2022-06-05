@@ -1,8 +1,12 @@
 import * as d3 from "d3";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import jsonFile from '../../public/jsonFile_all.json'
 
-export const MyD3Component: React.FC = () => {
+interface IProps {
+  isScaleDown: boolean
+}
+
+export const MyD3Component: React.FC<IProps> = (props) => {
   const wrapRefs = useRef([]);
   const svgRefs = useRef([]);
   const temperatureInfo = jsonFile.water_temperature
@@ -14,12 +18,17 @@ export const MyD3Component: React.FC = () => {
   // 2重のレンダリングを防止
   const isRender = useRef(false)
 
+  const scaleStyle = {
+    transform: `scale(${props.isScaleDown ? 0.5 : 1.0})`,
+    width: `${props.isScaleDown ? '220px' : 'initial'}`,
+    height: `${props.isScaleDown ? '220px' : 'initial'}`,
+  }
 
   const renderSvg = (wrapRef: any, svgRef: any, jsonData, title: string) => {
     // marginの設定
-    const margin = { top: 40, right: 40, bottom: 40, left: 40 },
-      width = 440 - margin.left - margin.right,
-      height = 440 - margin.top - margin.bottom;
+    const margin = { top: 40, right: 40, bottom: 40, left: 40 }
+    const width = 440 - margin.left - margin.right
+    const height = 440 - margin.top - margin.bottom
 
     // svgタグにgを埋め込む
     const svg = d3.select(svgRef).attr("width", width + margin.left + margin.right)
@@ -59,7 +68,7 @@ export const MyD3Component: React.FC = () => {
 
     // ヒートマップの各要素の色とレンジを設定する
     // d3.scaleSequential creates a scale from an interpolator
-    // see: https://observablehq.com/@d3/sequential-scales
+    // @see: https://observablehq.com/@d3/sequential-scales
     const myColor = d3.scaleSequential(
       (t) => { return d3.interpolateTurbo(t); }
     )
@@ -92,7 +101,7 @@ export const MyD3Component: React.FC = () => {
         tooltip
           .html("水温（℃）<br>" + data.value)
           .style("left", (d3.pointer(event)[0] + 70) + "px")
-          .style("top", (d3.pointer(event)[1] + -380) + "px")
+          .style("top", (d3.pointer(event)[1] + - 380) + "px")
       }
 
       // add the squares
@@ -140,14 +149,14 @@ export const MyD3Component: React.FC = () => {
       })
       isRender.current = true;
     },
-    [wrapRefs.current, svgRefs.current])
+    [wrapRefs.current, svgRefs.current,])
 
   return (
     <React.Fragment>
       {
         temperatureInfo.map((_, index) => {
           return (
-            <div ref={wrapRefs.current[index]} key={index}>
+            <div ref={wrapRefs.current[index]} key={index} style={scaleStyle}>
               <svg
                 className={`d3-component-${index}`}
                 ref={svgRefs.current[index]}
@@ -156,6 +165,16 @@ export const MyD3Component: React.FC = () => {
           )
         })
       }
+      <style jsx global>
+        {`
+        @media screen and (max-width: 480px) {
+          svg { 
+            width: 100% !important;
+            transform: scale(0.9);
+          }
+        }
+        `}
+      </style>
     </React.Fragment>
   );
 }
