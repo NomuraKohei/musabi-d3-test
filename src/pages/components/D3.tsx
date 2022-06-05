@@ -63,7 +63,7 @@ export const MyD3Component: React.FC = () => {
     const myColor = d3.scaleSequential(
       (t) => { return d3.interpolateTurbo(t); }
     )
-      .domain([14, 30]);
+      .domain([0, 30]);
 
     const readData = (data: any) => {
       const tooltip = d3.select(wrapRef)
