@@ -85,8 +85,8 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         .style("border-radius", "5px")
         .style("padding", "5px")
         .style("position", "relative")
-        .style("width", "184px")
-        .style("height", "72px")
+        .style("width", "128px")
+        .style("height", "40px")
 
       // マウスオーバー時はtooltipを表示
       const mouseover = (d) => {
@@ -99,8 +99,8 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       // マウスが動いている時
       const mousemove = (event, data) => {
         tooltip
-          .html("水温（℃）<br>" + data.value)
-          .style("left", (d3.pointer(event)[0] + 70) + "px")
+          .html(`水温：${Math.round(data.value * 10) / 10}℃`)
+          .style("left", (d3.pointer(event)[0] - 10) + "px")
           .style("top", (d3.pointer(event)[1] + - 380) + "px")
       }
 
@@ -171,6 +171,12 @@ export const MyD3Component: React.FC<IProps> = (props) => {
           svg { 
             width: 100% !important;
             transform: scale(0.9);
+          }
+          .tooltip {
+            position: absolute !important;
+            top: 0 !important;
+            left: initial !important;
+            right: 16px;
           }
         }
         `}
