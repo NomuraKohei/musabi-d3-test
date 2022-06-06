@@ -22,6 +22,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
     transform: `scale(${props.isScaleDown ? 0.5 : 1.0})`,
     width: `${props.isScaleDown ? '220px' : 'initial'}`,
     height: `${props.isScaleDown ? '220px' : 'initial'}`,
+    marginBottom: `${props.isScaleDown ? '16px' : 'initial'}`
   }
 
   const renderSvg = (wrapRef: any, svgRef: any, jsonData, title: string) => {
@@ -104,7 +105,8 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         const TOOLTIP_TOP_OFFSET = -464
         const waterTemperature = (Math.round(data.value * 10) / 10);
         tooltip
-          .html(waterTemperature ? `<span style="font-variant-numeric:tabular-nums;">水温：${waterTemperature.toFixed(1)}℃</span>` : 'データなし')
+          .html(waterTemperature ? `< span style="font-variant-numeric:tabular-nums;" > 水温：${waterTemperature.toFixed(1)
+            }℃</span> ` : 'データなし')
           .style("left", (d3.pointer(event)[0] + TOOLTIP_LEFT_OFFSET) + "px")
           .style("top", (d3.pointer(event)[1] + TOOLTIP_TOP_OFFSET) + "px")
       }
@@ -164,7 +166,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
           return (
             <div ref={wrapRefs.current[index]} key={index} style={scaleStyle}>
               <svg
-                className={`d3-component-${index}`}
+                className={`d3 - component - ${index} `}
                 ref={svgRefs.current[index]}
               />
             </div>
@@ -173,19 +175,19 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       }
       <style jsx global>
         {`
-        @media screen and (max-width: 480px) {
-          svg { 
-            width: 100% !important;
-            transform: scale(0.9);
-          }
+@media screen and(max - width: 480px) {
+          svg {
+    width: 100 % !important;
+    transform: scale(0.9);
+  }
           .tooltip {
-            position: absolute !important;
-            top: 0 !important;
-            left: initial !important;
-            right: 16px;
-          }
-        }
-        `}
+    position: absolute!important;
+    top: 0!important;
+    left: initial!important;
+    right: 16px;
+  }
+}
+`}
       </style>
     </React.Fragment>
   );
