@@ -147,17 +147,6 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       .style("fill", "#ccc")
       .text(title);
 
-    // svg
-    //   .append("text")
-    //   .attr("x", 0)
-    //   .attr("y", -20)
-    //   .attr("text-anchor", "left")
-    //   .style("font-size", "14px")
-    //   .style("fill", "#999")
-    //   .style("max-width", 400)
-    //   .text('データ元：海洋データセンター')
-
-    //Read the data
     readData(jsonData)
   }
 
@@ -194,7 +183,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
             }
             .tooltip {
               position: absolute !important;
-              top: 0 !important;
+              top: 3px !important;
               left: initial !important;
               right: 16px;
             }
