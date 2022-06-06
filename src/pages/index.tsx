@@ -2,7 +2,6 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { MyD3Component } from '../components/D3';
 import React, { useState } from 'react';
-import ogpImage from '../../public/ogp.jpg'
 import { InferGetStaticPropsType, NextPage } from 'next/types';
 import jsonFileData from '../../public/jsonFile_all.json'
 
@@ -30,13 +29,13 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                 <meta property="og:site_name" content="Seawater TemperatureData Visualization" />
                 <meta property="og:description" content="月ごとの海水温の平均をビジュアライズ" />
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content={ogpImage.src} />
+                <meta property="og:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta property="og:image:width" content={String(1260)} />
                 <meta property="og:image:height" content={String(600)} />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Seawater TemperatureData Visualization" />
                 <meta name="twitter:description" content="月ごとの海水温の平均をビジュアライズ" />
-                <meta name="twitter:image" content={ogpImage.src} />
+                <meta name="twitter:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta name="twitter:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
             </Head>
 
