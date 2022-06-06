@@ -24,14 +24,12 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                     name='description'
                     content='2002年から2020年までの月毎の海水温の平均をビジュアライズした。' />
                 <link rel='icon' href='/favicon.ico' />
-                <meta property="og:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
                 <meta property="og:title" content="Seawater TemperatureData Visualization" />
-                <meta property="og:site_name" content="Seawater TemperatureData Visualization" />
-                <meta property="og:description" content="月ごとの海水温の平均をビジュアライズ" />
                 <meta property="og:type" content="website" />
+                <meta property="og:description" content="月ごとの海水温の平均をビジュアライズ" />
+                <meta property="og:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
                 <meta property="og:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
-                <meta property="og:image:width" content={String(1260)} />
-                <meta property="og:image:height" content={String(600)} />
+                <meta property="og:site_name" content="Seawater TemperatureData Visualization" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Seawater TemperatureData Visualization" />
                 <meta name="twitter:description" content="月ごとの海水温の平均をビジュアライズ" />
