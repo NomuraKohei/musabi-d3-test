@@ -4,6 +4,7 @@ import { MyD3Component } from '../components/D3';
 import React, { useState } from 'react';
 import { InferGetStaticPropsType, NextPage } from 'next/types';
 import jsonFileData from '../../public/jsonFile_all.json'
+import Script from 'next/script';
 
 const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const [isScaleDown, setIsScaleDown] = useState(false);
@@ -14,12 +15,21 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
 
     return (
         <div className={`${styles.container} ${isScaleDown && styles.containerSmall}`}>
+            <Script
+                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`}
+                strategy="afterInteractive"
+            />
+            <Script id="google-analytics" strategy="afterInteractive">
+                {`
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){window.dataLayer.push(arguments);}
+                gtag('js', new Date());
+
+                gtag('config', '${process.env.NEXT_PUBLIC_ANALYTICS_ID}');
+                `}
+            </Script>
             <Head>
                 <title>Seawater Temperature Data Visualization</title>
-                <link
-                    href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
-                    rel="stylesheet"
-                />
                 <meta
                     name='description'
                     content='2002年から2020年までの月毎の海水温の平均をビジュアライズした。' />

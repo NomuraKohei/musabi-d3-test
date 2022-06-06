@@ -12745,7 +12745,7 @@
             {
                 "group": "2004",
                 "variable": "9月",
-                "value": "NaN"
+                "value": -99
             },
             {
                 "group": "2004",
@@ -18295,17 +18295,17 @@
             {
                 "group": "2002",
                 "variable": "1月",
-                "value": "NaN"
+                "value": -99
             },
             {
                 "group": "2002",
                 "variable": "2月",
-                "value": "NaN"
+                "value": -99
             },
             {
                 "group": "2002",
                 "variable": "3月",
-                "value": "NaN"
+                "value": -99
             },
             {
                 "group": "2002",

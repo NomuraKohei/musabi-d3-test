@@ -8,15 +8,13 @@ interface IProps {
 
 export interface JsonFile {
   island_names: string[];
-  water_temperature: ({
-    group: string;
-    variable: string;
-    value: number;
-  } | {
-    group: string;
-    variable: string;
-    value: string;
-  })[][]
+  water_temperature: WaterTemperature[][]
+}
+
+interface WaterTemperature {
+  group: string;
+  variable: string;
+  value: number;
 }
 
 export const MyD3Component: React.FC<IProps> = (props) => {
@@ -38,9 +36,9 @@ export const MyD3Component: React.FC<IProps> = (props) => {
     marginBottom: `${props.isScaleDown ? '16px' : 'initial'}`
   }
 
-  const renderSvg = (wrapRef: any, svgRef: any, jsonData, title: string) => {
+  const renderSvg = (wrapRef: HTMLDivElement, svgRef: SVGSVGElement, jsonData: WaterTemperature[], title: string) => {
     // marginの設定
-    const margin = { top: 40, right: 40, bottom: 40, left: 40 }
+    const margin = { top: 40, right: 40, bottom: 40, left: 30 }
     const width = 440 - margin.left - margin.right
     const height = 440 - margin.top - margin.bottom
 
@@ -78,7 +76,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       .call(d3.axisLeft(y).tickSize(0))
       .selectAll("text")
       .style("fill", "#ccc")
-      .attr("transform", "translate(-10, 0)")
+      .attr("transform", "translate(-4, 0)")
 
     // ヒートマップの各要素の色とレンジを設定する
     // d3.scaleSequential creates a scale from an interpolator
@@ -88,7 +86,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
     )
       .domain([0, 30]);
 
-    const readData = (data: any) => {
+    const readData = (data: WaterTemperature[]) => {
       const tooltip = d3.select(wrapRef)
         .append("div")
         .style("opacity", 0)
@@ -105,18 +103,18 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         .style("justify-content", "center")
 
       // マウスオーバー時はtooltipを表示
-      const mouseover = (d) => {
+      const mouseover = () => {
         tooltip.style("opacity", 0.85);
       }
       // マウスが離れている時はtooltipを非表示
-      const mouseleave = (d) => {
+      const mouseleave = () => {
         tooltip.style("opacity", 0)
       }
       // マウスが動いている時
-      const mousemove = (event, data) => {
+      const mousemove = (event, data: WaterTemperature) => {
         const TOOLTIP_LEFT_OFFSET = -24
         const TOOLTIP_TOP_OFFSET = -464
-        const waterTemperature = (Math.round(data.value * 10) / 10);
+        const waterTemperature = data.value === -99 ? undefined : (Math.round(data.value * 10) / 10);
         tooltip
           .html(waterTemperature ? `<span style="font-variant-numeric:tabular-nums;"> 水温：${waterTemperature.toFixed(1)}℃</span> ` : 'データなし')
           .style("left", (d3.pointer(event)[0] + TOOLTIP_LEFT_OFFSET) + "px")
@@ -125,14 +123,14 @@ export const MyD3Component: React.FC<IProps> = (props) => {
 
       // add the squares
       svg.selectAll()
-        .data(data, function (d: { group: string; variable: string; value: string; }) { return d.group + ':' + d.variable; })
+        .data(data, (data: WaterTemperature) => data.group + ':' + data.variable)
         .enter()
         .append("rect")
-        .attr("x", (d) => { return x(d.group) })
-        .attr("y", (d) => { return y(d.variable) })
+        .attr("x", (data) => { return x(data.group) })
+        .attr("y", (data) => { return y(data.variable) })
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        .style("fill", (d) => { return myColor(Number(d.value)); })
+        .style("fill", (data) => { return myColor(Number(data.value)); })
         .style("cursor", "crosshair")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
