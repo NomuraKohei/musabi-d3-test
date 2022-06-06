@@ -130,7 +130,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         .attr("y", (data) => { return y(data.variable) })
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
-        .style("fill", (data) => { return myColor(Number(data.value)); })
+        .style("fill", (data) => { return data.value === -99 ? "#333" : myColor(Number(data.value)); })
         .style("cursor", "crosshair")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
