@@ -28,7 +28,11 @@
 .titleContainer {
   color: #ccc;
   width: 440px;
-  padding: 40px;
+  padding: 32px;
+
+  @media screen and (max-width: 480px) {
+    padding: 40px 0 40px 16px;
+  }
 
   &Small {
     position: absolute;
@@ -69,7 +73,7 @@
 
 .description{
   color: #AAA;
-  margin-bottom: 32px;
+  margin-bottom: 40px;
 }
 
 .small {
@@ -92,11 +96,4 @@
   display: flex;
   align-items: center;
   color: #AAA;
-}
-
-@media (max-width: 600px) {
-  .grid {
-    width: 100%;
-    flex-direction: column;
-  }
 }

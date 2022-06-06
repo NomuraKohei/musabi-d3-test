@@ -36,13 +36,13 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                 <link rel='icon' href='/favicon.ico' />
                 <meta property="og:title" content="Seawater TemperatureData Visualization" />
                 <meta property="og:type" content="website" />
-                <meta property="og:description" content="月ごとの海水温の平均をビジュアライズ" />
+                <meta property="og:description" content="日本全国で測定された海水温のデータを収集し、１ヶ月の平均水温を年と月毎にビジュアライズ" />
                 <meta property="og:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
                 <meta property="og:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta property="og:site_name" content="Seawater TemperatureData Visualization" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Seawater TemperatureData Visualization" />
-                <meta name="twitter:description" content="月ごとの海水温の平均をビジュアライズ" />
+                <meta name="twitter:description" content="日本全国で測定された海水温のデータを収集し、１ヶ月の平均水温を年と月毎にビジュアライズ" />
                 <meta name="twitter:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta name="twitter:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
             </Head>
@@ -51,7 +51,7 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                 <section className={`${styles.titleContainer} ${isScaleDown && styles.titleContainerSmall}`}>
                     {!isScaleDown && <React.Fragment>
                         <h1 className={styles.title}>Seawater Temperature <br />Data Visualization</h1>
-                        <p className={styles.description}>月ごとの海水温の平均をビジュアライズ</p>
+                        <p className={styles.description}>日本全国で測定された海水温のデータを収集し<br />１ヶ月の平均水温を年と月毎にビジュアライズ</p>
                         <p className={styles.cite}>データ取得元：<cite className={styles.citeText}><a href="https://jdoss1.jodc.go.jp/vpage/coastal_j.html" rel="noopener noreferrer">海洋データセンター</a></cite></p>
                     </React.Fragment>}
                     <button onClick={onClickHandler} className={styles.scaleButton}>{isScaleDown ? '戻す' : '画面全体に表示を切替'}</button>
