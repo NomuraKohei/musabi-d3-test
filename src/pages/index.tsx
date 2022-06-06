@@ -29,6 +29,10 @@ export default function Home() {
             </Script>
             <Head>
                 <title>Seawater Temperature Data Visualization</title>
+                <link
+                    href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+                    rel="stylesheet"
+                />
                 <meta
                     name='description'
                     content='2002年から2020年までの月毎の海水温の平均をビジュアライズした。' />
