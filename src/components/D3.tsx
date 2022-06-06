@@ -1,16 +1,29 @@
 import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from "react";
-import jsonFile from '../../public/jsonFile_all.json'
 
 interface IProps {
   isScaleDown: boolean
+  jsonFile: JsonFile;
+}
+
+export interface JsonFile {
+  island_names: string[];
+  water_temperature: ({
+    group: string;
+    variable: string;
+    value: number;
+  } | {
+    group: string;
+    variable: string;
+    value: string;
+  })[][]
 }
 
 export const MyD3Component: React.FC<IProps> = (props) => {
   const wrapRefs = useRef([]);
   const svgRefs = useRef([]);
-  const temperatureInfo = jsonFile.water_temperature
-  const islandNames = jsonFile.island_names
+  const temperatureInfo = props.jsonFile.water_temperature
+  const islandNames = props.jsonFile.island_names
   temperatureInfo.forEach((_, i) => {
     wrapRefs.current[i] = React.createRef();
     svgRefs.current[i] = React.createRef();

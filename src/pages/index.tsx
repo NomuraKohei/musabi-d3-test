@@ -2,10 +2,11 @@ import Head from 'next/head';
 import styles from '../styles/Home.module.scss';
 import { MyD3Component } from '../components/D3';
 import React, { useState } from 'react';
-import Script from 'next/script';
 import ogpImage from '../../public/ogp.jpg'
+import { InferGetStaticPropsType, NextPage } from 'next/types';
+import jsonFileData from '../../public/jsonFile_all.json'
 
-export default function Home() {
+const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
     const [isScaleDown, setIsScaleDown] = useState(false);
 
     const onClickHandler = () => {
@@ -14,19 +15,6 @@ export default function Home() {
 
     return (
         <div className={styles.container}>
-            <Script
-                src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_ANALYTICS_ID}`}
-                strategy="afterInteractive"
-            />
-            <Script id="google-analytics" strategy="afterInteractive">
-                {`
-                window.dataLayer = window.dataLayer || [];
-                function gtag(){window.dataLayer.push(arguments);}
-                gtag('js', new Date());
-
-                gtag('config', '${process.env.NEXT_PUBLIC_ANALYTICS_ID}');
-                `}
-            </Script>
             <Head>
                 <title>Seawater Temperature Data Visualization</title>
                 <link
@@ -61,9 +49,20 @@ export default function Home() {
                     </React.Fragment>}
                     <button onClick={onClickHandler} className={styles.scaleButton}>{isScaleDown ? '戻す' : '画面全体に表示を切替'}</button>
                 </section>
-                <MyD3Component isScaleDown={isScaleDown} />
+                <MyD3Component isScaleDown={isScaleDown} jsonFile={jsonFile} />
             </main>
             <footer className={styles.footer}><small className={styles.small}>© Nomura All right reserved</small></footer>
         </div>
     );
 }
+
+export async function getStaticProps() {
+    const jsonFile = jsonFileData
+    return {
+        props: {
+            jsonFile: jsonFile,
+        },
+    }
+}
+
+export default Home
