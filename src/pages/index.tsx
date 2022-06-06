@@ -14,7 +14,7 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
     }
 
     return (
-        <div className={styles.container}>
+        <div className={`${styles.container} ${isScaleDown && styles.containerSmall}`}>
             <Head>
                 <title>Seawater Temperature Data Visualization</title>
                 <link
