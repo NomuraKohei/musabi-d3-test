@@ -36,15 +36,14 @@
 
 .scaleButton {
   background: #aaa;
-  border: none;
+  border: 1px solid #777;
   border-radius: 4px;
-  width: 112px;
-  padding: 8px;
+  padding: 4px 8px;
   color: #333;
   font-weight: bold;
   margin-top: 8px;
   cursor: pointer;
-
+  font-size: 12px;
 
   &:hover {
     background: #ccc;
@@ -57,12 +56,13 @@
 
 .title {
   font-size: 32px;
-  margin-top: 0;
+  margin: 0;
   letter-spacing: 0.01em;
 }
 
 .description{
-  color: #aaa;
+  color: #AAA;
+  margin-bottom: 32px;
 }
 
 .footer {
@@ -76,7 +76,12 @@
 }
 
 .cite {
-  color: rgb(134, 137, 194);
+  margin-bottom: 8px;
+  color: #AAA;
+}
+
+.citeText {
+  color: #8689C2;
 }
 
 @media (max-width: 600px) {
