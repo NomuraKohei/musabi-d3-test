@@ -79,18 +79,20 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
-        .style("background-color", "#FFFFFF")
-        .style("border", "solid")
-        .style("border-width", "2px")
-        .style("border-radius", "5px")
-        .style("padding", "5px")
+        .style("background-color", "#FFFFFFEE")
+        .style("border-radius", "8px")
         .style("position", "relative")
         .style("width", "128px")
         .style("height", "40px")
+        .style("text-align", "center")
+        .style("box-shadow", "0 2px 10px 0 rgb(0 0 0 / 20%)")
+        .style("display", "flex")
+        .style("align-items", "center")
+        .style("justify-content", "center")
 
       // マウスオーバー時はtooltipを表示
       const mouseover = (d) => {
-        tooltip.style("opacity", 0.85)
+        tooltip.style("opacity", 0.85);
       }
       // マウスが離れている時はtooltipを非表示
       const mouseleave = (d) => {
@@ -98,10 +100,13 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       }
       // マウスが動いている時
       const mousemove = (event, data) => {
+        const TOOLTIP_LEFT_OFFSET = -24
+        const TOOLTIP_TOP_OFFSET = -464
+        const waterTemperature = (Math.round(data.value * 10) / 10);
         tooltip
-          .html(`水温：${Math.round(data.value * 10) / 10}℃`)
-          .style("left", (d3.pointer(event)[0] - 10) + "px")
-          .style("top", (d3.pointer(event)[1] + - 380) + "px")
+          .html(waterTemperature ? `<span style="font-variant-numeric:tabular-nums;">水温：${waterTemperature.toFixed(1)}℃</span>` : 'データなし')
+          .style("left", (d3.pointer(event)[0] + TOOLTIP_LEFT_OFFSET) + "px")
+          .style("top", (d3.pointer(event)[1] + TOOLTIP_TOP_OFFSET) + "px")
       }
 
       // add the squares
@@ -114,6 +119,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         .attr("width", x.bandwidth())
         .attr("height", y.bandwidth())
         .style("fill", (d) => { return myColor(Number(d.value)); })
+        .style("cursor", "crosshair")
         .on("mouseover", mouseover)
         .on("mousemove", mousemove)
         .on("mouseleave", mouseleave)
