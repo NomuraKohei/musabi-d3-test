@@ -31,7 +31,8 @@
   padding: 32px;
 
   @media screen and (max-width: 480px) {
-    padding: 40px 0 40px 16px;
+    padding: 40px 0;
+    width: 356px;
   }
 
   &Small {
