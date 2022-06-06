@@ -41,7 +41,7 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                 <meta property="og:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta property="og:site_name" content="Seawater Temperature Data Visualization" />
                 <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Seawater TemperatureData Visualization" />
+                <meta name="twitter:title" content="Seawater Temperature Data Visualization" />
                 <meta name="twitter:description" content="日本全国で測定された海水温のデータを収集し、１ヶ月の平均水温を年と月毎にビジュアライズ" />
                 <meta name="twitter:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
                 <meta name="twitter:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
