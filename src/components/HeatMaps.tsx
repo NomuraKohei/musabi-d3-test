@@ -5,6 +5,7 @@ interface IProps {
   isScaleDown?: boolean
   jsonFile: JsonFile;
   heatMapProperty?: HeatMapProperty;
+  isInitialRender?: boolean
 }
 
 export interface JsonFile {
@@ -172,7 +173,7 @@ export const HeatMaps: React.FC<IProps> = (props) => {
       {
         temperatureInfo.map((_, index) => {
           return (
-            <div ref={wrapRefs.current[index]} key={index}>
+            <div ref={wrapRefs.current[index]} key={index} className="heatmap">
               <svg
                 className={`d3-component-${index}`}
                 ref={svgRefs.current[index]}
@@ -183,7 +184,15 @@ export const HeatMaps: React.FC<IProps> = (props) => {
       }
       <style jsx global>
         {`
+          .heatmap {
+            width: ${props.isInitialRender ? "440px" : "initial"};
+            height: ${props.isInitialRender ? "484px" : "initial"};
+          }
           @media screen and (max-width: 480px) {
+            .heatmap {
+              width: initial;
+              height: initial;
+            }
             svg {
               max-width: 100% !important;
               transform: scale(0.9);

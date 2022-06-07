@@ -22,7 +22,7 @@ const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticPr
                         <a className={styles.link}>画面全体表示に切替</a>
                     </Link>
                 </section>
-                <HeatMaps jsonFile={jsonFile} />
+                <HeatMaps jsonFile={jsonFile} isInitialRender />
             </div>
         </Layout>
     );
