@@ -1,0 +1,31 @@
+.contentsWrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding-top: 32px;
+}
+
+.contents {
+  display: grid;
+  width: 100%;
+  grid-auto-rows: 260px;
+  grid-gap: 8px 16px;
+  grid-template-columns: repeat(auto-fit, 220px);
+  justify-content: center;
+}
+
+.link {
+  margin-bottom: 24px;
+  padding: 8px 24px;
+  background: var(--background-button-color);
+  border-radius: var(--border-radius-button);
+  color: var(--text-button-color);
+  font-weight: bold;
+  font-size: var(--text-size-small);
+
+  &:hover {
+    background: var(--background-button-hover-color);
+  }
+}

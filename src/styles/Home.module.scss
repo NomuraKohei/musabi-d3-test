@@ -1,32 +1,14 @@
-.container {
-  background: #333;
-  min-height: 100vh;
-
-  &Small {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-}
-
-.main {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  position: relative;
+.contents {
+  width: 100%;
   padding-top: 64px;
-  overflow: hidden;
-
-  &Small {
-    justify-content: initial;
-    padding: 32px 0;
-  }
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 }
 
 .titleContainer {
-  color: #ccc;
+  color: var(--text-color-main);
   width: 440px;
   padding: 32px;
 
@@ -45,56 +27,39 @@
   }
 }
 
-.scaleButton {
-  background: #aaa;
-  border: 1px solid #777;
-  border-radius: 4px;
-  padding: 4px 8px;
-  color: #333;
-  font-weight: bold;
-  margin-top: 8px;
-  cursor: pointer;
-  font-size: 12px;
-
-  &:hover {
-    background: #ccc;
-  }
-
-  @media screen and (max-width: 480px) {
-    display: none;
-  }
-}
-
 .title {
-  font-size: 32px;
+  font-size: var(--text-size-large);
   font-weight: 300;
   margin: 0;
   letter-spacing: 0.01em;
 }
 
 .description{
-  color: #AAA;
+  color: var(--text-color-sub);
+  font-size: var(--text-size-medium);
   margin-bottom: 40px;
 }
 
-.small {
-  margin: 24px;
-}
-
 .cite {
-  font-size: 12px;
-  margin-bottom: 8px;
-  color: #AAA;
+  font-size: var(--text-size-small);
+  margin-bottom: 16px;
+  color: var(--text-color-sub);
 }
 
 .citeText {
-  color: #959ae8;
+  color: var(--text-link-color);
   text-decoration: underline;
 }
 
-.footer {
-  height: 64px;
-  display: flex;
-  align-items: center;
-  color: #AAA;
+.link {
+  padding: 8px 24px;
+  background: var(--background-button-color);
+  border-radius: var(--border-radius-button);
+  color: var(--text-button-color);
+  font-size: var(--text-size-small);
+  font-weight: bold;
+  
+  &:hover {
+    background: var(--background-button-hover-color);
+  }
 }

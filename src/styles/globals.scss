@@ -14,3 +14,18 @@ a {
 * {
   box-sizing: border-box;
 }
+
+:root {
+  --text-size-small: 0.75rem;
+  --text-size-medium: 1rem;
+  --text-size-large: 2rem;
+  --text-color-main: #CCCCCC;
+  --text-color-sub: #AAAAAA;
+  --text-color-supplement: #ccc;
+  --text-link-color: #959AE8;
+  --text-button-color: #333333;
+  --background-button-color: #AAAAAA;
+  --background-button-hover-color: #CCCCCC;
+  --background-color: #333;
+  --border-radius-button: 4px;
+}

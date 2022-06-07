@@ -2,8 +2,9 @@ import * as d3 from "d3";
 import React, { useEffect, useRef, useState } from "react";
 
 interface IProps {
-  isScaleDown: boolean
+  isScaleDown?: boolean
   jsonFile: JsonFile;
+  heatMapProperty?: HeatMapProperty;
 }
 
 export interface JsonFile {
@@ -11,13 +12,25 @@ export interface JsonFile {
   water_temperature: WaterTemperature[][]
 }
 
+export interface HeatMapProperty {
+  width?: number;
+  height?: number;
+  paddingTop?: number;
+  paddingLeft?: number;
+  paddingRight?: number;
+  paddingBottom?: number;
+  titlePosition?: number;
+  titleFontSize?: string;
+  isDisbleLabel?: boolean;
+  toolTipPosition?: { top: number; left: number; }
+}
+
 interface WaterTemperature {
   group: string;
   variable: string;
   value: number;
 }
-
-export const MyD3Component: React.FC<IProps> = (props) => {
+export const HeatMaps: React.FC<IProps> = (props) => {
   const wrapRefs = useRef([]);
   const svgRefs = useRef([]);
   const temperatureInfo = props.jsonFile.water_temperature
@@ -29,18 +42,11 @@ export const MyD3Component: React.FC<IProps> = (props) => {
   // 2重のレンダリングを防止
   const isRender = useRef(false)
 
-  const scaleStyle = {
-    transform: `scale(${props.isScaleDown ? 0.5 : 1.0})`,
-    width: `${props.isScaleDown ? '220px' : 'initial'}`,
-    height: `${props.isScaleDown ? '220px' : 'initial'}`,
-    marginBottom: `${props.isScaleDown ? '16px' : 'initial'}`
-  }
-
   const renderSvg = (wrapRef: HTMLDivElement, svgRef: SVGSVGElement, jsonData: WaterTemperature[], title: string) => {
     // marginの設定
-    const margin = { top: 40, right: 40, bottom: 40, left: 30 }
-    const width = 440 - margin.left - margin.right
-    const height = 440 - margin.top - margin.bottom
+    const margin = props.heatMapProperty ? { top: props.heatMapProperty.paddingTop, right: props.heatMapProperty.paddingRight, bottom: props.heatMapProperty.paddingBottom, left: props.heatMapProperty.paddingLeft } : { top: 40, right: 40, bottom: 40, left: 30 }
+    const width = props.heatMapProperty?.width ? props.heatMapProperty.width : 440 - margin.left - margin.right
+    const height = props.heatMapProperty?.height ? props.heatMapProperty.height : 440 - margin.top - margin.bottom
 
     // svgタグにgを埋め込む
     const svg = d3.select(svgRef).attr("width", width + margin.left + margin.right)
@@ -57,26 +63,28 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       .domain(columnLabels)
       .padding(0.01);
 
-    // ラベルの位置
-    svg.append("g")
-      .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(x).tickSize(0))
-      .selectAll("text")
-      .style("fill", "#ccc")
-      .attr("transform", "translate(-7, 10) rotate(-90)")    // 文字を時計回りに-90度回転させる
-      .style("text-anchor", "end"); //　文字の表示開始位置を指定にする
-
     // 縦幅、縦のラベル名、（ヒートマップの要素の）縦方向のパッディングの設定
     const y = d3.scaleBand()
       .range([height, 0])
       .domain(rowLabels)
       .padding(0.01);
 
-    svg.append("g")
-      .call(d3.axisLeft(y).tickSize(0))
-      .selectAll("text")
-      .style("fill", "#ccc")
-      .attr("transform", "translate(-4, 0)")
+    if (!props.heatMapProperty?.isDisbleLabel) {
+      // ラベルの位置
+      svg.append("g")
+        .attr("transform", "translate(0," + height + ")")
+        .call(d3.axisBottom(x).tickSize(0))
+        .selectAll("text")
+        .style("fill", "#ccc")
+        .attr("transform", "translate(-7, 10) rotate(-90)")    // 文字を時計回りに-90度回転させる
+        .style("text-anchor", "end"); //　文字の表示開始位置を指定にする
+
+      svg.append("g")
+        .call(d3.axisLeft(y).tickSize(0))
+        .selectAll("text")
+        .style("fill", "#ccc")
+        .attr("transform", "translate(-4, 0)")
+    }
 
     // ヒートマップの各要素の色とレンジを設定する
     // d3.scaleSequential creates a scale from an interpolator
@@ -88,6 +96,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
 
     const readData = (data: WaterTemperature[]) => {
       const tooltip = d3.select(wrapRef)
+        .style("position", "relative")
         .append("div")
         .style("opacity", 0)
         .attr("class", "tooltip")
@@ -112,8 +121,8 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       }
       // マウスが動いている時
       const mousemove = (event, data: WaterTemperature) => {
-        const TOOLTIP_LEFT_OFFSET = -24
-        const TOOLTIP_TOP_OFFSET = -464
+        const TOOLTIP_LEFT_OFFSET = props.heatMapProperty?.toolTipPosition ? props.heatMapProperty?.toolTipPosition.left : -24
+        const TOOLTIP_TOP_OFFSET = props.heatMapProperty?.toolTipPosition ? props.heatMapProperty?.toolTipPosition.top : -464
         const waterTemperature = data.value === -99 ? undefined : (Math.round(data.value * 10) / 10);
         tooltip
           .html(waterTemperature ? `<span style="font-variant-numeric:tabular-nums;"> 水温：${waterTemperature.toFixed(1)}℃</span> ` : 'データなし')
@@ -139,9 +148,9 @@ export const MyD3Component: React.FC<IProps> = (props) => {
 
     svg.append("text")
       .attr("x", 0)
-      .attr("y", -20)
+      .attr("y", props.heatMapProperty?.titlePosition ? props.heatMapProperty.titlePosition : -20)
       .attr("text-anchor", "left")
-      .style("font-size", "24px")
+      .style("font-size", props.heatMapProperty?.titleFontSize ? `${props.heatMapProperty?.titleFontSize}px` : "24px")
       .style("fill", "#ccc")
       .text(title);
 
@@ -163,7 +172,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
       {
         temperatureInfo.map((_, index) => {
           return (
-            <div ref={wrapRefs.current[index]} key={index} style={scaleStyle}>
+            <div ref={wrapRefs.current[index]} key={index}>
               <svg
                 className={`d3-component-${index}`}
                 ref={svgRefs.current[index]}
@@ -176,7 +185,7 @@ export const MyD3Component: React.FC<IProps> = (props) => {
         {`
           @media screen and (max-width: 480px) {
             svg {
-              width: 100% !important;
+              max-width: 100% !important;
               transform: scale(0.9);
             }
             .tooltip {
