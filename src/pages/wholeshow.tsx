@@ -20,7 +20,7 @@ const WholeShow: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getSta
     isDisbleLabel: true
   }
   return (
-    <Layout>
+    <Layout title="Seawater Temperature Data Visualization | 画面全体表示">
       <div className={styles.contentsWrap}>
         <Link href="/">
           <a className={styles.link}>戻る</a>

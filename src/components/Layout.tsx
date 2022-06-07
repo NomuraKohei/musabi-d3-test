@@ -5,6 +5,7 @@ import Script from 'next/script';
 
 interface Props {
   children: ReactNode
+  title: string
 }
 
 const Layout: React.FC<Props> = (props) => {
@@ -24,7 +25,7 @@ const Layout: React.FC<Props> = (props) => {
                 `}
       </Script>
       <Head>
-        <title>Seawater Temperature Data Visualization</title>
+        <title>{props.title}</title>
         <meta
           name='description'
           content='2002年から2020年までの月毎の海水温の平均をビジュアライズした。' />

@@ -12,7 +12,7 @@ const InitialRenderComponent: React.FC = () => (
 
 const Home: NextPage = ({ jsonFile }: InferGetStaticPropsType<typeof getStaticProps>) => {
     return (
-        <Layout>
+        <Layout title="Seawater Temperature Data Visualization">
             <div className={styles.contents}>
                 <section className={styles.titleContainer}>
                     <h1 className={styles.title}>Seawater Temperature <br />Data Visualization</h1>
