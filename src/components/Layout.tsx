@@ -41,6 +41,7 @@ const Layout: React.FC<Props> = (props) => {
         <meta name="twitter:description" content="日本全国で測定された海水温のデータを収集し、１ヶ月の平均水温を年と月毎にビジュアライズ" />
         <meta name="twitter:image" content="https://seawater-temperature-data-visualization.vercel.app/ogp.jpg" />
         <meta name="twitter:url" content="https://seawater-temperature-data-visualization.vercel.app/" />
+        <meta name="google-site-verification" content="5Gftc4vNKAIuoIrcUC3dNvJZ7igr5f64K_5bGrcGDqs" />
       </Head>
 
       <main className={styles.main}>
